@@ -1,6 +1,9 @@
 require 'XMLTree.rb'
 require "meta.rb"
 require "service.rb"
+require "moduleLoader.rb"
+require "module.rb"
+
 class Traverser
 
   @xmlTree
@@ -63,8 +66,11 @@ if __FILE__ == $0
  # Element.include(Visited)
   top = Element.new("config")
   tmp = Element.new("module")
-  tmp.addAttribute("name", "testmodule")
+  tmp.addAttribute("name", "TestModule")
   tmp.addAttribute("type", "lat")
+  setting = Element.new("modulesetting")
+  setting.addAttribute("path","../modules/")
+  top.addElement(setting)
   tmp2 = Element.new("option")
   tmp2.addAttribute("name", "hello")
   tmp2.value = "Hello World"
@@ -72,12 +78,15 @@ if __FILE__ == $0
   top.addElement(tmp)
   tmp3 = Element.new("module")
   tmp3.addAttribute("name", "test2")
-  top.addElement(tmp3)
+  #top.addElement(tmp3)
 
   m = MetaModule.new
+  m2 = ModuleLoader.new
   trav = Traverser.new(top)
   trav.addModule(m) 
+  trav.addModule(m2)
   trav.run()
+  
 
   service = Service.instance
   service.options
