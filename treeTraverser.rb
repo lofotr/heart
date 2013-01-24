@@ -1,4 +1,4 @@
-require 'XMLTree.rb'
+require_relative 'XMLTree.rb'
 
 class Traverser
 

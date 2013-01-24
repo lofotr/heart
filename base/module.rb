@@ -1,4 +1,4 @@
-require '../service.rb'
+require_relative '../service.rb'
 class Module
 
   @service

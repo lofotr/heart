@@ -1,3 +1,4 @@
+require_relative '../base/module.rb'
 class ModuleLoader
 
 
@@ -10,7 +11,8 @@ class ModuleLoader
 
   def init(name, attributes)
     if(name == "modulesetting")
-      @path = attributes["path"]
+      #@path = attributes["path"]
+      $LOAD_PATH << attributes["path"]
     elsif(name =="module")
       #check for existance
     end
@@ -22,7 +24,7 @@ class ModuleLoader
 
     elsif(element.name == "module")
       name = element.attributes["name"]
-      require "#{@path}#{name}.rb"
+      require "#{name}.rb"
       m = Module.const_get(name).new
       m.run()
     end 
