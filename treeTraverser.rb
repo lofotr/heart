@@ -1,8 +1,4 @@
 require 'XMLTree.rb'
-require "meta.rb"
-require "service.rb"
-require "moduleLoader.rb"
-require "module.rb"
 
 class Traverser
 
