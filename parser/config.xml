@@ -1,0 +1,11 @@
+<config>
+   <modulesetting path="../modules/" />
+   <option name="test" value="blabla"/>
+   <login type="admin">
+	<option name="farge" value="#233223"/>
+	<module name="TestModule" type="lat">
+		<option name="hello">Hello World</option>
+	</module>
+	<module name="test2"></module>
+   </login>
+</config>
