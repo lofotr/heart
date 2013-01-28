@@ -38,8 +38,14 @@ module XmlTokenizer
             symbMode = true
 	  end
         elsif(c == ">")
-          tmp += c
+	  if(tmp == "/")
+            tmp += c
+            tokens << tmp
+            tmp = ""
+            next
+	  end
 	  tokens << tmp
+	  tokens << ">"
           tmp = ""
           next
         elsif(!symbMode)
