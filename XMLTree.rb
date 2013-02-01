@@ -16,7 +16,7 @@ class Element
     @name = name
     @attributes = Hash.new
     @children = Array.new(0)
-@value = String.new("")
+    @value = String.new("")
 end
 
   def addAttribute(name, value)
@@ -26,7 +26,10 @@ end
   def addElement(element)
     @children<< element
   end
-
+  
+  def setValue(value)
+    @value = value
+  end
 
 end
 

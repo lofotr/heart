@@ -86,7 +86,7 @@ module XmlTokenizer
         element = false
         next
       when "/>"
-        self.callTagEnd()
+        self.callEndElementTag(t)
         elementName = false
         element = false
         next
