@@ -4,26 +4,24 @@ include XmlTokenizer
 @ElementName
 
 
-def callStartElementTag(tag)
+def callElementTag(element)
+   puts element
 end
 
-def callTagEnd(tag)
-#   puts "end #{tag}"
+def callTagEnd()
+   puts "end"
 end
 
-def callAttribute(name)
-end
-
-def callAttributeValue(value)
-#   puts "atrb: #{value}"
+def callAttribute(token)
+    puts token
 end
 
 def callValue(value)
-#   puts "value: #{value}"
+   puts "value: #{value}"
 end
 
-def callEndElementTag(tag)
-   puts "endElement: #{tag}"
+def callEndElementTag(element)
+   puts "endElement: #{element}"
 end
 
 

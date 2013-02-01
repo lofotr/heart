@@ -69,7 +69,49 @@ module XmlTokenizer
   end
 
   def tokenParser(tokens)
-     puts tokens.inspect
+     #puts tokens.inspect
+
+    element = false
+    elementName = false
+    endElementName = false
+    value = ""
+    tokens.each{ |t|
+      case t
+      when "<"
+        elementName = true
+        element = true
+	next
+      when ">"
+        elementName = false
+        element = false
+        next
+      when "/>"
+        self.callTagEnd()
+        elementName = false
+        element = false
+        next
+      when "</"
+        endElementName = true
+        if(value != "")
+          self.callValue(value)
+          value = ""
+        end
+        next
+      else
+       if(elementName)
+         self.callElementTag(t)
+         elementName = false
+       elsif(element)
+         self.callAttribute(t)
+       elsif(endElementName)
+	 self.callEndElementTag(t)
+         endElementName = false
+       else
+	 value += " #{t}"
+       end
+      end
+    }
+
   end
   
 end
