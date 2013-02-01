@@ -1,5 +1,5 @@
-require "./xmlTokenizer.rb"
-require "../XMLTree.rb"
+require_relative "./xmlTokenizer.rb"
+require_relative "../XMLTree.rb"
 
 class Parser
 include XmlTokenizer
@@ -10,8 +10,8 @@ include XmlTokenizer
 
 @attributeName
 
-def initialize(filename)
-  super(filename)
+def initialize(file)
+  super(file)
   @elementTag = false
   @stack = Array.new(0)
   
@@ -48,11 +48,15 @@ def callEndElementTag(element)
    end
 end
 
+def result()
+  return @stack
+end
 
 end
 
 if __FILE__ == $0
- parser = Parser.new("config.xml")
+ file = File.new("config.xml")
+ parser = Parser.new(file)
  parser.read
  puts parser.inspect
 end

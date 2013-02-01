@@ -2,8 +2,8 @@ module XmlTokenizer
   @file
   @symbols
 
-  def initialize(filename)
-     @file = File.new(filename,"r")
+  def initialize(file)
+     @file = file
      @symbols = Array["\s", "</", "/>"]
      @lesser = Array["<", ">", "/"]
   end
