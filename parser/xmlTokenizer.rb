@@ -3,84 +3,84 @@ module XmlTokenizer
   @symbols
 
   def initialize(file)
-     @file = file
-     @symbols = Array["\s", "</", "/>"]
-     @lesser = Array["<", ">", "/"]
-  end
+   @file = file
+   @symbols = Array["\s", "</", "/>"]
+   @lesser = Array["<", ">", "/"]
+ end
 
-  def read()
-    while(line = @file.gets)
-      tokenize(line)
-    end
-    @file.close
-  end
+ def read()
+  while(line = @file.gets)
+    tokenize(line)
+end
+  @file.close
+end
 
-  def tokenize(line)
+def tokenize(line)
 #    puts line
-    tokens = Array.new(0)
-    tmp = String.new
-    symbMode = true
+tokens = Array.new(0)
+tmp = String.new
+symbMode = true
 
-    line.gsub!("\t","")
-    line.gsub!("\""," ")
-    line.gsub!("=","")
-     
+line.gsub!("\t","")
+line.gsub!("\""," ")
+line.gsub!("=","")
+
 #    puts line 
-    line.each_char{|c|
-      if(c == " ")
-	tokens << tmp
-	tmp = ""
-        next
-      end
-      if(@lesser.include?(c))
-        if(c == "/")
-          if(tmp == "")
-            symbMode = true
-	  end
-        elsif(c == ">")
-	  if(tmp == "/")
-            tmp += c
-            tokens << tmp
-            tmp = ""
-            next
-	  end
-	  tokens << tmp
-	  tokens << ">"
-          tmp = ""
-          next
-        elsif(!symbMode)
-          tokens << tmp
-          symbMode = true
-          tmp = ""
-        end
-	tmp += c
-      else
-        if(symbMode)
-          tokens << tmp
-          tmp = ""
-          symbMode = false
-        end
-        tmp += c
-      end
-    }
-  tokens.delete("")
-  tokenParser(tokens)
-
+line.each_char{|c|
+  if(c == " ")
+   tokens << tmp
+   tmp = ""
+   next
+ end
+ if(@lesser.include?(c))
+  if(c == "/")
+    if(tmp == "")
+      symbMode = true
+    end
+  elsif(c == ">")
+   if(tmp == "/")
+    tmp += c
+    tokens << tmp
+    tmp = ""
+    next
   end
+  tokens << tmp
+  tokens << ">"
+  tmp = ""
+  next
+elsif(!symbMode)
+  tokens << tmp
+  symbMode = true
+  tmp = ""
+end
+tmp += c
+else
+  if(symbMode)
+    tokens << tmp
+    tmp = ""
+    symbMode = false
+  end
+  tmp += c
+end
+}
+tokens.delete("")
+tokenParser(tokens)
 
-  def tokenParser(tokens)
+end
+
+def tokenParser(tokens)
      #puts tokens.inspect
 
-    element = false
-    elementName = false
-    endElementName = false
-    value = ""
-    tokens.each{ |t|
+     element = false
+     elementName = false
+     endElementName = false
+     value = ""
+     tokens.each{ |t|
       case t
       when "<"
         elementName = true
         element = true
-	next
+        next
       when ">"
         elementName = false
         element = false
@@ -104,14 +104,19 @@ module XmlTokenizer
        elsif(element)
          self.callAttribute(t)
        elsif(endElementName)
-	 self.callEndElementTag(t)
-         endElementName = false
-       else
-	 value += " #{t}"
-       end
-      end
-    }
+        self.callEndElementTag(t)
+        endElementName = false
+      else
+        if(value == "")
+          value = "#{t}"
+        else
+          value += " #{t}"
+        end
 
-  end
-  
+      end
+    end
+  }
+
+end
+
 end

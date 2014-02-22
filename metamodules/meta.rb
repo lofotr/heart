@@ -4,12 +4,15 @@ class MetaModule
   end
 
   def init(name, attributes)
-    puts "#{name}"
+    if(name == 'login')
+      return true
+    end
+    #puts "#{name}"
     return true
   end
 
   def run(element)
-    puts "run #{element.name}"
+    #puts "run #{element.name}"
   end
 
   def end()

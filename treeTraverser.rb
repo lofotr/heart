@@ -17,10 +17,11 @@ class Traverser
     while(!stack.empty?) do
       element = stack.first
       if(element.visited)
-	 runModules(element)
+	       runModules(element)
          stack.shift
-	 next
+	       next
       elsif(!initModules(element))
+         endModules() #Allows the coremodules to clean up.
          stack.shift
          next
       end
@@ -47,7 +48,10 @@ class Traverser
     end     
   end
 
-  def endModules(element)
+  def endModules()
+    @metaModules.each do |m|
+      m.end()
+    end
   end
   
 
