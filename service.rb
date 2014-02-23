@@ -1,6 +1,4 @@
-require 'singleton'
 class Service
-  include Singleton
   @serviceObjects
   attr_accessor :serviceObjects
 

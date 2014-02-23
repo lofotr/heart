@@ -3,8 +3,9 @@ class ModuleLoader
 
 
   @path
-
-  def initialize()
+  @service
+  def initialize(service)
+      @service = service
       @path = nil
       @module = nil
   end
@@ -26,6 +27,7 @@ class ModuleLoader
       name = element.attributes["name"]
       require "#{name}.rb"
       m = Module.const_get(name).new
+      m.service = @service
       m.run()
     end 
   end

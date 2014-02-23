@@ -8,9 +8,8 @@ class OptionLoader
   @options
 
   #Adds options as a service
-  def initialize()
-
-    @service = Service.instance
+  def initialize(service)
+    @service = service
     @options = Options.new
     @service.addService('options', @options)
 

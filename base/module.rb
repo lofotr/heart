@@ -1,10 +1,7 @@
 require_relative '../service.rb'
 class Module
 
-  @service
-  def initialize()
-    @service = Service.instance
-  end
+  attr_accessor :service
 
   def run()
   end
