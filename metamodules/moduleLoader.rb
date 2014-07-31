@@ -1,7 +1,6 @@
 require_relative '../base/module.rb'
+require 'logger'
 class ModuleLoader
-
-
   @path
   @service
   def initialize(service)
@@ -25,7 +24,7 @@ class ModuleLoader
 
     elsif(element.name == "module")
       name = element.attributes["name"]
-      require "#{name}.rb"
+      load "#{name}.rb" #Should use require in stead of load in production. Faster code!!!!
       m = Module.const_get(name).new
       m.service = @service
       m.run()
